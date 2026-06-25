@@ -8,7 +8,4 @@ services:
       MCP_TRANSPORT: http
       SERVER_PORT: 3000
       LOG_LEVEL: ${LOG_LEVEL:-info}
-      # Opcional: token/URL por defecto si querés un fallback
-      # BOOKSTACK_BASE_URL: ${BOOKSTACK_BASE_URL:-}
-      # BOOKSTACK_API_TOKEN: ${BOOKSTACK_API_TOKEN:-}
     restart: unless-stopped

@@ -101,6 +101,55 @@ bookstack_pages_create({
 bookstack_search({ query: "API documentation", count: 20 })
 ```
 
+## 🐳 Docker — Shared Server Deployment
+
+The recommended way to host the MCP server for multiple users is to run a single shared HTTP instance. Each user connects with their own BookStack credentials via request headers — no credentials are stored on the server.
+
+### 1. Run with Docker Compose
+
+```bash
+# Pull and start the server
+docker compose up -d
+```
+
+The server listens on port `3000`. No `.env` file needed — credentials are supplied per-request by each user.
+
+### 2. Configure your MCP client
+
+Each user adds the server to their MCP client configuration with their own BookStack URL and token:
+
+**Claude Desktop** (`claude_desktop_config.json`):
+```json
+{
+  "mcpServers": {
+    "bookstack": {
+      "url": "http://your-server:3000/message",
+      "headers": {
+        "x-bookstack-url": "https://your-bookstack.com/api",
+        "x-bookstack-token": "token_id:token_secret"
+      }
+    }
+  }
+}
+```
+
+**Claude Code** (CLI):
+```bash
+claude mcp add --transport http bookstack http://your-server:3000/message \
+  --header "x-bookstack-url: https://your-bookstack.com/api" \
+  --header "x-bookstack-token: token_id:token_secret"
+```
+
+> 💡 **Token format**: go to your BookStack instance → `Settings → API Tokens` and create a token. Combine the ID and secret as `token_id:token_secret`.
+
+### Build the image locally (optional)
+
+```bash
+docker build -t ghcr.io/matiassy/bookstack-mcp-server:latest .
+```
+
+---
+
 ## 🛠️ Development
 
 ```bash
