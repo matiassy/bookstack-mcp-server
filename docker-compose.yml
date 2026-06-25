@@ -1,0 +1,14 @@
+services:
+  bookstack-mcp:
+    image: ghcr.io/matiassy/bookstack-mcp-server:latest
+    ports:
+      - "3000:3000"
+    environment:
+      NODE_ENV: production
+      MCP_TRANSPORT: http
+      SERVER_PORT: 3000
+      LOG_LEVEL: ${LOG_LEVEL:-info}
+      # Opcional: token/URL por defecto si querés un fallback
+      # BOOKSTACK_BASE_URL: ${BOOKSTACK_BASE_URL:-}
+      # BOOKSTACK_API_TOKEN: ${BOOKSTACK_API_TOKEN:-}
+    restart: unless-stopped

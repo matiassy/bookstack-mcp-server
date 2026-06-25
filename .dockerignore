@@ -1,0 +1,14 @@
+node_modules/
+dist/
+.env
+.env.*
+.git/
+.github/
+tests/
+coverage/
+docs/
+*.md
+*.log
+.npmignore
+.gitignore
+.dockerignore
