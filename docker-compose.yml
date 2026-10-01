@@ -1,5 +1,6 @@
 services:
   bookstack-mcp:
+    container_name: mcp_bookstack
     image: ghcr.io/matiassy/bookstack-mcp-server:latest
     ports:
       - "3000:3000"
